@@ -1,0 +1,12 @@
+data1=pipe('03_Mar_201519-21_','18_Mar_201518-21_','linear','2interaction','intervalrow','decision tree');
+data2=pipe('03_Mar_201519-21_','18_Mar_201518-21_','linear','2interaction','period','glm');
+data3=pipe('03_Mar_201519-21_','18_Mar_201518-21_','linear','2interaction','intervalrow','kmeans');
+
+dataS1=pipe('03_Mar_201519-21_','18_Mar_201518-21_','linear','simple','intervalrow','decision tree');
+dataS2=pipe('03_Mar_201519-21_','18_Mar_201518-21_','linear','simple','period','glm');
+dataS3=pipe('03_Mar_201519-21_','18_Mar_201518-21_','linear','simple','intervalrow','kmeans');
+
+
+Edata1=pipe('M_03','M_18','linear','2interaction','intervalrow','decision tree');
+Edata2=pipe('M_03','M_18','linear','2interaction','period','glm');
+data3=pipe('M_03','M_18','linear','2interaction','intervalrow','kmeans');
