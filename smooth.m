@@ -34,8 +34,24 @@ xlabel('Time');
 ylabel('Heart Rate');
 %title('ricky0203 drink');
 
-%%%smooth plot ambulation
+%%%smooth plot Skin Temperature
  
+x=data(:,1);
+y=data(:,5);
+ [f,gof,out]= fit(x, y,  'smoothingspline', 'SmoothingParam', m);
+ subplot(2,2,3)
+ xlim([min(x),max(x)]);
+ ylim([min(y),max(y)]);
+plot(f);
+%hold on
+%plot(x,ricky0203(:,5)*max(y),'-b')
+str = sprintf('smoothing Rsquare %f',gof.rsquare);
+legend(str);
+ylim([min(y),max(y)]);
+xlabel('Time');
+ylabel('Skin Temperature');
+
+%%%smooth plot ambulation
 x=data(:,1);
 y=data(:,2);
  [f,gof,out]= fit(x, y,  'smoothingspline', 'SmoothingParam', m);
