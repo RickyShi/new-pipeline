@@ -17,6 +17,6 @@ arracy.error=min(error_rf);
 arracy.index=find(error_rf==arracy.error);
 arracy.result=result(:,arracy.index);
 arracy.benchmark=benchmark;
-arracy.good_or_not=error_rf<benchmark;
+arracy.good_or_not=arracy.error<benchmark;
 end
 

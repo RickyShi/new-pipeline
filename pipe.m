@@ -79,7 +79,6 @@ if strcmp(machine,'glm')
     result.glm=glm(traindata,testdata);
 end;
 if strcmp(machine,'decision tree')
-    
     result.tree=tree(traindata,testdata);
 end;
 

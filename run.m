@@ -1,3 +1,13 @@
+% data=pipe('02_Mar_201519-22_','02_Mar_201522-23_','linear','smooth',0.9);
+% data1=pipe('03_Mar_201519-21_','02_Mar_201522-23_','linear','2interaction','intervalrow','decision tree');
+% data2=pipe('03_Mar_201519-21_','18_Mar_201518-21_','linear','simple','period','decision tree');
+% data1=pipe('03_Mar_201519-21_','02_Mar_201522-23_','linear','2interaction','intervalrow','kmeans');
+% data_l_s_p_d=pipe('03_Mar_201519-21_','18_Mar_201518-21_','linear','simple','period','decision tree','smooth',0.9);
+% 
+% data1=pipe('M_03','M_18','linear','2interaction','intervalrow','decision tree');
+% 
+% data_l_s_p_d=pipe('03_Mar_201519-21_','18_Mar_201518-21_','linear','simple','period','decision tree');
+
 % Supervised Learning
 data_l_s_p_d=pipe('03_Mar_201519-21_','18_Mar_201518-21_','linear','simple','period','decision tree');
 data_l_s_p_g=pipe('03_Mar_201519-21_','18_Mar_201518-21_','linear','simple','period','glm');
