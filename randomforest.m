@@ -1,12 +1,11 @@
 function arracy = randomforest( train,test )
 %%randomforest
-row=size(test(:,end),1);
-num=size(train(:,2:end-1),1);
+num=size(train(:,2:end-1),2);
 for i=1:num
-    rffit=TreeBagger(500,train(:,2:end-1),train(:,end),'NvarToSample',i,'Method','classification','oobpred','on');
+    rffit=TreeBagger(50,train(:,2:end-1),train(:,end),'NvarToSample',i,'Method','classification','oobpred','on');
     pred=predict(rffit,test(:,2:end-1));
     result(:,i)=double(nominal(pred))-1;
-    error_rf(i)=1-mean(abs(test(:,end)-result(:,i)));
+    error_rf(i)=mean(abs(test(:,end)-result(:,i)));
 end;
 %%count test information   
 drink_count=sum(test(:,end));

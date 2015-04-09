@@ -1,4 +1,7 @@
 function arracy = kmeans( train )
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%        K-Means(Simple)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     [idx,C]=kmeans(train(:,2:end-1),2);
     pred=idx-1;
     error=mean(abs(train(:,end)-pred)); 

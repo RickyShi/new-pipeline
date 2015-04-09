@@ -1,4 +1,4 @@
-function [ output_args ] =svm( train, test )
+function arracy =svm( train, test )
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%      Support Vector Machine(Simple)
 %%%        written by peng

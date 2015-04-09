@@ -81,6 +81,9 @@ end;
 if strcmp(machine,'decision tree')
     result.tree=tree(traindata,testdata);
 end;
+if strcmp(machine,'svm')
+    result.svm=svm(traindata,testdata);
+end;
 
 
 
