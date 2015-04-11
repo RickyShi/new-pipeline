@@ -2,7 +2,7 @@ function  smooth(data,m)
 figure
 x=data(:,1);
 y=data(:,3);
- [f,gof,out]= fit(x, y,  'smoothingspline', 'SmoothingParam', m);
+ [f,gof,out]= fit(x, y,  'smoothingspline', 'SmoothingParam', 0.9);
  subplot(2,2,1)
  xlim([min(x),max(x)]);
  ylim([min(y),max(y)]);
@@ -25,7 +25,7 @@ ylabel('Breath Rate');
 
 x=data(:,1);
 y=data(:,4);
- [f,gof,out]= fit(x, y,  'smoothingspline', 'SmoothingParam', m);
+ [f,gof,out]= fit(x, y,  'smoothingspline', 'SmoothingParam', 0.9);
  subplot(2,2,2)
  xlim([min(x),max(x)]);
  ylim([min(y),max(y)]);
@@ -47,7 +47,7 @@ ylabel('Heart Rate');
  
 x=data(:,1);
 y=data(:,2);
- [f,gof,out]= fit(x, y,  'smoothingspline', 'SmoothingParam', m);
+ [f,gof,out]= fit(x, y,  'smoothingspline', 'SmoothingParam', 0.9);
  subplot(2,2,3)
  xlim([min(x),max(x)]);
  ylim([min(y),max(y)]);
@@ -68,7 +68,7 @@ ylabel('ambulation');
  
 x=data(:,1);
 y=data(:,5);
- [f,gof,out]= fit(x, y,  'smoothingspline', 'SmoothingParam', m);
+ [f,gof,out]= fit(x, y,  'smoothingspline', 'SmoothingParam', 0.6);
  subplot(2,2,4)
  xlim([min(x),max(x)]);
  ylim([min(y),max(y)]);

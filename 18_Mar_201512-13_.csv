@@ -1,3 +1,0 @@
-time,motion,body position,BR derived by Belt,HR derived by ECG,Belt Quality,ECG Quality,HR confidence,BR confidence,Skin Temperature,Day,DF
-13:22:01,1,10,35.0,67.4,84.0,100.0,99.0,75.0,31.50,18_Mar_2015
-12:26:02,1,10,35.0,66.3,84.0,100.0,99.0,75.0,31.50,18_Mar_2015
