@@ -1,4 +1,4 @@
-function result =  pipe(train,test,fit,samplevar,sampleobs,machine,graph,m)
+function result =  pipe(train,test,fit,sampleGeneration,graph,m)
 %pipeline implementation 
 traindata=ricky(train);
 testdata=ricky(test);
@@ -15,13 +15,13 @@ else if strcmp(fit, 'spline')
     end;
 end;
 % Check number of inputs.
-if nargin > 8
+if nargin > 6
     error('TooManyInputs');
 end
 
 % Fill in unset optional values.
 switch nargin
-    case 6
+    case 4
         graph = 'noplot';
         m = 0;
 end
@@ -32,32 +32,13 @@ if strcmp(graph,'smooth')
     smooth(testdata,m);
 end;
 
-%sampling
-if strcmp(samplevar,'simple');
-    traindata=simple(traindata);
-    testdata=simple(testdata);
-    result.train=traindata;
-    result.test=testdata;
-else if strcmp(samplevar,'2interaction');
-        traindata=interaction2(traindata);
-        testdata=interaction2(testdata);
-        result.train=traindata;
-        result.test=testdata;
-else if strcmp(samplevar,'3interaction')
-        traindata=interaction3(traindata);
-        testdata=interaction3(testdata);
-        result.train=traindata;
-        result.test=testdata;
-    end;
-    end;
-end;
-
-    if strcmp(sampleobs,'period');
+%data training sample generation
+    if strcmp(sampleGeneration,'period');
         data=period(traindata,testdata);
         traindata=data.train;
         testdata=data.test;
         result.period=data;
-    else if strcmp(sampleobs,'interval')
+    else if strcmp(sampleGeneration,'interval')
             traindata=interval(traindata);
             testdata=interval(testdata);
             result.interval.train=traindata;
@@ -70,27 +51,50 @@ end;
             end;
         end;
     end;
+    
+%sampling
+% if strcmp(samplevar,'simple');
+    traindataSimple=simple(traindata);
+    testdataSimple=simple(testdata);
+    result.simple.train=traindataSimple;
+    result.simple.test=testdataSimple;
+% else if strcmp(samplevar,'2interaction');
+    traindataInteraction=interaction2(traindata);
+    testdataInteraction=interaction2(testdata);
+    result.interaction.train=traindataInteraction;
+    result.interaction.test=testdataInteraction;
+%     end;
+% end;
+
+
 
 %supervised learning
-if strcmp(machine,'randomforest')
-    result.rf=randomforest(traindata,testdata);
-end;
-if strcmp(machine,'glm')
-    result.glm=glm(traindata,testdata);
-end;
-if strcmp(machine,'decision tree')
-    result.tree=tree(traindata,testdata);
-end;
-if strcmp(machine,'svm')
-    result.svm=svm(traindata,testdata);
-end;
+% if strcmp(machine,'randomforest')
+%     result.simple.rf=randomforest(traindataSimple,testdataSimple);
+%     result.interaction.rf=randomforest(traindataInteraction,testdataInteraction);
+% end;
+% if strcmp(machine,'glm')
+%     result.glm=glm(traindata,testdata);
+    result.simple.glm=glm(traindataSimple,testdataSimple);
+    result.interaction.glm=glm(traindataInteraction,testdataInteraction);
+% end;
+% if strcmp(machine,'decision tree')
+%     result.tree=tree(traindata,testdata);
+    result.simple.tree=tree(traindataSimple,testdataSimple);
+    result.interaction.tree=tree(traindataInteraction,testdataInteraction);
+% end;
+% if strcmp(machine,'svm')
+%     result.svm=svm(traindata,testdata);
+    result.simple.svm=svm(traindataSimple,testdataSimple);
+    result.interaction.svm=svm(traindataInteraction,testdataInteraction);
+% end;
 
 
 
 %unsupervised learning
-if strcmp(machine,'kmeans')
-    result.kmeans=k_means(traindata);
-end;
+% if strcmp(machine,'kmeans')
+%     result.kmeans=k_means(traindata);
+% end;
 
 
 
