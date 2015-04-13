@@ -28,7 +28,7 @@ benchmark=drink_count/size(test,1);
 %%output
 arracy.accuracy_drink=max(max(accuracy_drink));
 [arracy.row,arracy.col]=find(accuracy_drink==arracy.accuracy_drink);
-arracy.accuracy_all=accuracy_all{arracy.row(1),arracy.col(1)};
+arracy.accuracy_all=accuracy_all(arracy.row(1),arracy.col(1));
 arracy.confusion=confusion{arracy.row(1),arracy.col(1)};
 arracy.result=pred_tree{arracy.row(1)}(:,arracy.col(1));
 arracy.benchmark=1-benchmark;
