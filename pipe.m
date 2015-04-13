@@ -89,7 +89,7 @@ end;
 %end;
 %supervised learning
 %if strcmp(machine,'randomforest')
-    result.rf=randomforest(traindata,testdata);
+%     result.rf=randomforest(traindata,testdata);
 %end;
 %if strcmp(machine,'glm')
     result.glm=glm(traindata,testdata);
@@ -101,9 +101,9 @@ end;
 
 
 %unsupervised learning
-if strcmp(machine,'kmeans')
-    result.kmeans=k_means(traindata);
-end;
+% if strcmp(machine,'kmeans')
+%     result.kmeans=k_means(traindata);
+% end;
 
 
 

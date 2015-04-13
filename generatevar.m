@@ -1,8 +1,10 @@
 function result = generatevar( train,test )
 for method=1:2
     if method==1
-        traindata{method}=interaction2(train);
-        testdata{method}=interaction2(test);
+%         traindata{method}=interaction2(train);
+%         testdata{method}=interaction2(test);
+        traindata{method}=simple(train);
+        testdata{method}=simple(test);
         pred{method}=glm(traindata{method},testdata{method});
         accuarcy_all(method)=pred{method}.accuarcy_all;
         accuarcy_drink(method)=pred{method}.accuarcy_drink;

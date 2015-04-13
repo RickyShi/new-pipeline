@@ -17,7 +17,6 @@ arracy.accuarcy_drink=accuracy_drink;
 arracy.accuarcy_all=accuracy_all;
 arracy.result=predcut;
 arracy.confusion=confusion;
-% I don't know
 arracy.benchmark=1-benchmark;
 arracy.good_or_not=arracy.accuarcy_all>benchmark;
 end

@@ -1,10 +1,12 @@
-function [ output_args ] =svm( train, test )
+function  arracy=svm( train, test )
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%      Support Vector Machine(Simple)
 %%%        written by peng
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%list kernel parameter%%%%%%%
+train=d.generatevar.train;
+test=d.generatevar.test;
 kernel={'rbf','linear','polynomial'};
 
 for i= 1:3
@@ -26,13 +28,13 @@ drink_count=sum(test(:,end));
 benchmark=drink_count/size(test,1);
 
 %%output
-arracy.accuracy_all=max(accuracy_all);
-arracy.accuracy_drink=max(accurcy_drink);
+arracy.accuracy_drink=max(accuracy_drink);
 arracy.index=find(accuracy_drink==arracy.accuracy_drink);
+arracy.accuracy_all=accuracy_all(arracy.index);
 arracy.result=result(:,arracy.index);
 arracy.benchmark=1-benchmark;
 arracy.confusion=confusion{arracy.index};
-arracy.good_or_not=arracy.accuracy_all>benchmark;
+arracy.good_or_not=arracy.accuracy_all>arracy.benchmark;
 
 end
 
