@@ -21,4 +21,4 @@ data_spline_raw_18 = raw('18_Mar_201513-18_','18_Mar_201518-21_','spline','nan')
 data_linear_raw_181318_03 = raw('18_Mar_201513-18_','03_Mar_201519-21_','linear','nan');
 data_spline_raw_181318_03 = raw('18_Mar_201513-18_','03_Mar_201519-21_','spline','nan');
 data_linear_raw_181821_03 = raw('18_Mar_201518-21_','03_Mar_201519-21_','linear','nan');
-data_spline_raw_181821_03 = raw('18_Mar_201518-21_','03_Mar_201519-21_','spline','nan')
+data_spline_raw_181821_03 = raw('18_Mar_201518-21_','03_Mar_201519-21_','spline','nan');
