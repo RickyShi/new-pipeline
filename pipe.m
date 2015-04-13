@@ -1,4 +1,4 @@
-function result =  pipe(train,test,fit,sampleGeneration,graph,m)
+function result =  pipe(train,test,fit,sampleobs,graph,m)
 %pipeline implementation 
 traindata=ricky(train);
 testdata=ricky(test);
@@ -9,9 +9,13 @@ result.numberofdrink.test=sum(testdata(:,end));
 if strcmp(fit,'linear')
    traindata=fitlinear(traindata);
    testdata=fitlinear(testdata);
+   result.fitlinear.train=traindata;
+   result.fitlinear.test=testdata;
 else if strcmp(fit, 'spline')
         traindata=fitspline(traindata);
         testdata=fitspline(testdata);
+        result.fitspline.train=traindata;
+        result.fitspline.test=testdata;
     end;
 end;
 % Check number of inputs.
@@ -32,69 +36,74 @@ if strcmp(graph,'smooth')
     smooth(testdata,m);
 end;
 
-%data training sample generation
-    if strcmp(sampleGeneration,'period');
+%%%%%generating training sample
+
+    if strcmp(sampleobs,'period');
         data=period(traindata,testdata);
         traindata=data.train;
         testdata=data.test;
-        result.period=data;
-    else if strcmp(sampleGeneration,'interval')
+        result.generatetraining.period.train=traindata;
+        result.generatetraining.period.test=testdata;
+        result.generatetraining.period.idx=data.idx;
+    else if strcmp(sampleobs,'interval')
             traindata=interval(traindata);
             testdata=interval(testdata);
-            result.interval.train=traindata;
-            result.interval.test=testdata;
+            result.generatetraining.train=traindata;
+            result.generatetraining.test=testdata;
         else if strcmp(sampleobs,'intervalrow')
-            traindata=intervalrow(traindata);
-            testdata=intervalrow(testdata);
-            result.windows.train=traindata;
-            result.windows.test=testdata;
+            data=intervalrow(traindata,testdata);
+            traindata=data.train;
+            testdata=data.test;
+            result.generatetraining.intervalrow.train=traindata;
+            result.generatetraining.intervalrow.test=testdata;
+            result.generatetraining.intervalrow.idx=data.idx;
             end;
         end;
     end;
     
+    data=generatevar(traindata,testdata);
+    traindata=data.train;
+    testdata=data.test;
+    result.generatevar.confusion=data.confusion;
+    result.generatevar.bestidx=data.idx;
+    result.generatevar.train=traindata;
+    result.generatevar.test=testdata;
 %sampling
-% if strcmp(samplevar,'simple');
-    traindataSimple=simple(traindata);
-    testdataSimple=simple(testdata);
-    result.simple.train=traindataSimple;
-    result.simple.test=testdataSimple;
-% else if strcmp(samplevar,'2interaction');
-    traindataInteraction=interaction2(traindata);
-    testdataInteraction=interaction2(testdata);
-    result.interaction.train=traindataInteraction;
-    result.interaction.test=testdataInteraction;
-%     end;
-% end;
-
-
-
+%if strcmp(samplevar,'simple');
+%    traindata=simple(traindata);
+%    testdata=simple(testdata);
+%    result.train=traindata;
+%    result.test=testdata;
+%else if strcmp(samplevar,'2interaction');
+%        traindata=interaction2(traindata);
+%       testdata=interaction2(testdata);
+%        result.train=traindata;
+%        result.test=testdata;
+%else if strcmp(samplevar,'3interaction')
+%        traindata=interaction3(traindata);
+%        testdata=interaction3(testdata);
+%        result.train=traindata;
+%        result.test=testdata;
+%    end;
+%    end;
+%end;
 %supervised learning
-% if strcmp(machine,'randomforest')
-%     result.simple.rf=randomforest(traindataSimple,testdataSimple);
-%     result.interaction.rf=randomforest(traindataInteraction,testdataInteraction);
-% end;
-% if strcmp(machine,'glm')
-%     result.glm=glm(traindata,testdata);
-    result.simple.glm=glm(traindataSimple,testdataSimple);
-    result.interaction.glm=glm(traindataInteraction,testdataInteraction);
-% end;
-% if strcmp(machine,'decision tree')
-%     result.tree=tree(traindata,testdata);
-    result.simple.tree=tree(traindataSimple,testdataSimple);
-    result.interaction.tree=tree(traindataInteraction,testdataInteraction);
-% end;
-% if strcmp(machine,'svm')
-%     result.svm=svm(traindata,testdata);
-    result.simple.svm=svm(traindataSimple,testdataSimple);
-    result.interaction.svm=svm(traindataInteraction,testdataInteraction);
-% end;
+%if strcmp(machine,'randomforest')
+    result.rf=randomforest(traindata,testdata);
+%end;
+%if strcmp(machine,'glm')
+    result.glm=glm(traindata,testdata);
+%end;
+%if strcmp(machine,'decision tree')
+    result.tree=tree(traindata,testdata);
+%end;
 
 
 
 %unsupervised learning
-% if strcmp(machine,'kmeans')
-%     result.kmeans=k_means(traindata);
-% end;
+if strcmp(machine,'kmeans')
+    result.kmeans=k_means(traindata);
+end;
 
 
 

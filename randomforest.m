@@ -1,21 +1,26 @@
 function arracy = randomforest( train,test )
 %%randomforest
-num=size(train(:,2:end-1),2);
+row=size(test(:,end),1);
+num=size(train(:,2:end-1),1);
 for i=1:num
     rffit=TreeBagger(50,train(:,2:end-1),train(:,end),'NvarToSample',i,'Method','classification','oobpred','on');
     pred=predict(rffit,test(:,2:end-1));
     result(:,i)=double(nominal(pred))-1;
-    error_rf(i)=mean(abs(test(:,end)-result(:,i)));
+    confusion{i}=confusionmat(test(:,end),result(:,i));
+    accuracy_drink(i)=confusion{i}(2,2)/sum(confusion{i}(2,:));
+    accuracy_all(i)=(confusion{i}(1,1)+confusion{i}(2,2))/length(result(:,i));
 end;
 %%count test information   
 drink_count=sum(test(:,end));
 benchmark=drink_count/size(test,1);
 
 %%output
-arracy.error=min(error_rf);
-arracy.index=find(error_rf==arracy.error);
+arracy.accuracy_all=max(accuracy_all);
+arracy.accuracy_drink=max(accurcy_drink);
+arracy.index=find(accuracy_drink==arracy.accuracy_drink);
 arracy.result=result(:,arracy.index);
 arracy.benchmark=benchmark;
-arracy.good_or_not=arracy.error<benchmark;
+arracy.confusion=confusion{arracy.index};
+arracy.good_or_not=arracy.accuracy_all>benchmark;
 end
 

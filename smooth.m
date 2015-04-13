@@ -2,7 +2,10 @@ function  smooth(data,m)
 figure
 x=data(:,1);
 y=data(:,3);
+for m=0.9:0.000001:1
  [f,gof,out]= fit(x, y,  'smoothingspline', 'SmoothingParam', m);
+ if gor.rsquare>0.5
+end;
  subplot(2,2,1)
  xlim([min(x),max(x)]);
  ylim([min(y),max(y)]);

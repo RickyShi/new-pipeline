@@ -6,13 +6,17 @@ for i=1:2
         for j=1:col-1
             tree=fitctree(train(:,2:end-1),train(:,end),'Prune', 'off', 'NumVariablesToSample', j);
             pred_tree{i}(:,j)=predict(tree,test(:,2:end-1));
-            error_tree(1,j)=mean(abs(test(:,end)-pred_tree{i}(:,j)));
+            confusion{i,j}=confusionmat(test(:,end),pred_tree{i}(:,j));
+            accuracy_all{i,j}=(confusion{i,j}(1,1)+confusion{i,j}(2,2))/length(pred_tree{i}(:,j));_di
+            accuracy_drink{i,j}=confusion{i,j}(2,2)/sum(confusion{i,j}(2,:))
         end;
     else if i==2
             for j=1:col-1
                 tree=fitctree(train(:,2:end-1),train(:,end),'Prune', 'on', 'NumVariablesToSample', j);
                 pred_tree{i}(:,j)=predict(tree,test(:,2:end-1));
-                error_tree(2,j)=mean(abs(test(:,end)-pred_tree{i}(:,j)));
+                confusion{i,j}=confusionmat(test(:,end),pred_tree{i}(:,j));
+                accuracy_all{i,j}=(confusion{i,j}(1,1)+confusion{i,j}(2,2))/length(pred_tree{i}(:,j));_di
+                accuracy_drink{i,j}=confusion{i,j}(2,2)/sum(confusion{i,j}(2,:))
             end;
         end;
     end;
@@ -22,10 +26,12 @@ drink_count=sum(test(:,end));
 benchmark=drink_count/size(test,1);
 
 %%output
-arracy.error=min(min(error_tree));
-[arracy.row,arracy.col]=find(error_tree==arracy.error);
+arracy.accuracy_all=max(max(accuracy_all));
+arracy.accuracy_drink=max(max(accuracy_drink));
+[arracy.row,arracy.col]=find(accuracy_drink==arracy.accuracy_drink);
+arracy.confusion=confusion{arracy.row(1),arracy.col(1)};
 arracy.result=pred_tree{arracy.row(1)}(:,arracy.col(1));
-arracy.benchmark=benchmark;
-arracy.good_or_not=arracy.error<benchmark;
+arracy.benchmark=1-benchmark;
+arracy.good_or_not=arracy.accuracy_all>benchmark;
 end
 
