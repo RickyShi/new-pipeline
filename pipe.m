@@ -48,8 +48,8 @@ end;
     else if strcmp(sampleobs,'interval')
             traindata=interval(traindata);
             testdata=interval(testdata);
-            result.generatetraining.train=traindata;
-            result.generatetraining.test=testdata;
+            result.generatetraining.interval.train=traindata;
+            result.generatetraining.interval.test=testdata;
         else if strcmp(sampleobs,'intervalrow')
             data=intervalrow(traindata,testdata);
             traindata=data.train;
