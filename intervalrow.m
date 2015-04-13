@@ -4,25 +4,27 @@ function intervalrow = intervalrow( train, test )
 idx=1;
 for windows=5:5:20
     for i=1:n1
-        r=filter(ones(1,windows),1,train(:,i));
-        t(:,i)=r(windows:windows:end)./windows; 
+        r1{idx}(:,i)=filter(ones(1,windows),1,train(:,i));
+        t1(:,i)=r1{idx}(windows:windows:end,i)./windows; 
     end;
-        t(:,end)=ceil(t(:,end));
-        training(idx)=t;
+        t1(:,end)=ceil(t1(:,end));
+        training{idx}=t1;
     for i=1:n2
-        r=filter(ones(1,windows),1,test(:,i));
-        t(:,i)=r(windows:windows:end)./windows; 
+        r2{idx}(:,i)=filter(ones(1,windows),1,test(:,i));
+        t2(:,i)=r2{idx}(windows:windows:end,i)./windows; 
     end;
-        t(:,end)=ceil(t(:,end));
-        testing(idx)=t;
+        t2(:,end)=ceil(t2(:,end));
+        testing{idx}=t2;
     %%%%%%glm-test
-    result(idx)=glm(training(idx),testing(idx));
+    result{idx}=glm(training{idx},testing{idx});
+    accuarcy_drink(idx)=result{idx}.accuarcy_drink;
     idx=idx+1;
+    clear r1 t1 r2 t2;
 end;
-intervalrow.bestaccuarcy=max(result.accuarcy);
-intervalrow.bestidx=find(result.accuarcy==intervalrow.bestaccuarcy);
-intervalrow.train=training(intervalrow.bestidx);
-intervalrow.testing=testing(intervalrow.bestidx);
+intervalrow.bestaccuarcy=max(accuarcy_drink);
+intervalrow.bestidx=find(accuarcy_drink==intervalrow.bestaccuarcy);
+intervalrow.train=training{intervalrow.bestidx(1)};
+intervalrow.test=testing{intervalrow.bestidx(1)};
         
 
 

@@ -5,8 +5,6 @@ function  arracy=svm( train, test )
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%list kernel parameter%%%%%%%
-train=d.generatevar.train;
-test=d.generatevar.test;
 kernel={'rbf','linear','polynomial'};
 
 for i= 1:3

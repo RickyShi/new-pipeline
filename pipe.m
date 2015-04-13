@@ -56,7 +56,7 @@ end;
             testdata=data.test;
             result.generatetraining.intervalrow.train=traindata;
             result.generatetraining.intervalrow.test=testdata;
-            result.generatetraining.intervalrow.idx=data.idx;
+            result.generatetraining.intervalrow.idx=data.bestidx;
             end;
         end;
     end;
@@ -89,7 +89,7 @@ end;
 %end;
 %supervised learning
 %if strcmp(machine,'randomforest')
-%     result.rf=randomforest(traindata,testdata);
+    result.rf=randomforest(traindata,testdata);
 %end;
 %if strcmp(machine,'glm')
     result.glm=glm(traindata,testdata);
@@ -97,6 +97,7 @@ end;
 %if strcmp(machine,'decision tree')
     result.tree=tree(traindata,testdata);
 %end;
+    result.svm=svm(traindata,testdata);
 
 
 
