@@ -45,11 +45,11 @@ end;
     rtn.generatevar.train=traindata;
     rtn.generatevar.test=testdata;
     
-   % rtn.rf=randomforest(traindata,testdata);
+%     rtn.rf=randomforest(traindata,testdata);
     
-    rtn.glm=glm(traindata,testdata);
+%     rtn.glm=glm(traindata,testdata);
 
-    rtn.tree=tree(traindata,testdata);
+%     rtn.tree=tree(traindata,testdata);
 
     rtn.svm=svm(traindata,testdata);
 
