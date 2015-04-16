@@ -26,7 +26,8 @@ function period = period( train,test)
                 pred=predict(glm,test(:,2:end-1));
                 pred=pred>=0.5;
                 confusion=confusionmat(double(pred),test(:,end));
-                accuracy(row,col)=(confusion(1,1)+confusion(2,2))/length(pred);
+%                 accuracy(row,col)=(confusion(1,1)+confusion(2,2))/length(pred);
+                accuracy(row,col)=confusion(2,2)/sum(confusion(2,:));
                 col=col+1;
                     end;
                 end;
