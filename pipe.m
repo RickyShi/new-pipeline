@@ -1,4 +1,4 @@
-function result =  pipe(train,test,fit,sampleobs,graph,m)
+function result =  pipe(train,test,fit,sampleobs,halfwindowSize,graph,m)
 %pipeline implementation 
 traindata=ricky(train);
 testdata=ricky(test);
@@ -9,23 +9,25 @@ result.numberofdrink.test=sum(testdata(:,end));
 if strcmp(fit,'linear')
    traindata=fitlinear(traindata);
    testdata=fitlinear(testdata);
+   raw_test=testdata;
    result.fitlinear.train=traindata;
    result.fitlinear.test=testdata;
 else if strcmp(fit, 'spline')
         traindata=fitspline(traindata);
         testdata=fitspline(testdata);
+        raw_test=testdata;
         result.fitspline.train=traindata;
         result.fitspline.test=testdata;
     end;
 end;
 % Check number of inputs.
-if nargin > 6
+if nargin > 7
     error('TooManyInputs');
 end
 
 % Fill in unset optional values.
 switch nargin
-    case 4
+    case 5
         graph = 'noplot';
         m = 0;
 end
@@ -89,7 +91,7 @@ end;
 %end;
 %supervised learning
 %if strcmp(machine,'randomforest')
-    result.rf=randomforest(traindata,testdata);
+    %result.rf=randomforest(traindata,testdata);
 %end;
 %if strcmp(machine,'glm')
     result.glm=glm(traindata,testdata);
@@ -107,6 +109,27 @@ end;
 % end;
 
 
+%%evaluate result;
+if strcmp(sampleobs,'period');
+result.pair_period_glm=period_test(raw_test(:,1),raw_test(:,end),result.glm.result);
+result.pair_period_tree=period_test(raw_test(:,1),raw_test(:,end),result.tree.result);
+%result.pair_period_rf=period_test(raw_test(:,1),raw_test(:,end),result.rf.result);
+result.pair_period_svm=period_test(raw_test(:,1),raw_test(:,end),result.svm.result);
+[result.pair_period_glm.eval, result.pair_period_glm.rtn] = evaluation(result.pair_period_glm.pair,halfwindowSize);
+[result.pair_period_tree.eval, result.pair_period_tree.rtn] = evaluation(result.pair_period_tree.pair,halfwindowSize);
+[result.pair_period_svm.eval, result.pair_period_svm.rtn] = evaluation(result.pair_period_svm.pair,halfwindowSize);
+else if strcmp(sampleobs,'intervalrow');
+result.pair_interval_glm=interval_test(raw_test(:,1),raw_test(:,end),result.glm.result);
+result.pair_interval_tree=interval_test(raw_test(:,1),raw_test(:,end),result.tree.result);
+%result.pair_interval_rf=interval_test(raw_test(:,1),raw_test(:,end),result.rf.result);
+result.pair_interval_svm=interval_test(raw_test(:,1),raw_test(:,end),result.svm.result);
+[result.pair_interval_glm.eval, result.pair_interval_glm.rtn] = evaluation(result.pair_interval_glm.pair,halfwindowSize);
+[result.pair_interval_tree.eval, result.pair_interval_tree.rtn] = evaluation(result.pair_interval_tree.pair,halfwindowSize);
+[result.pair_interval_svm.eval, result.pair_interval_svm.rtn] = evaluation(result.pair_interval_svm.pair,halfwindowSize);
+    end;
+end;
+
+ 
 
 
 end

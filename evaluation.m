@@ -3,8 +3,10 @@ function [rtn,output]= evaluation(test,interval)
 %   Detailed explanation goes here
     n=size(test,1);
     NumberOfPredictionAsOne=0;
+    dCount = 0;
+    testDCount = 0;
     for i=1:n
-        if test(i,2)== 1
+        if test(i,3)== 1
             NumberOfPredictionAsOne=NumberOfPredictionAsOne+1;
         end
     end
@@ -13,7 +15,8 @@ function [rtn,output]= evaluation(test,interval)
 %prediction starts
     flag=0;
     for i=1:n
-        if test(i,1)== 1
+        if test(i,2)== 1
+            testDCount = testDCount+1;
             testIndex=i;
             MinIndex=testIndex-interval;
             MaxIndex=testIndex+interval;
@@ -24,13 +27,14 @@ function [rtn,output]= evaluation(test,interval)
                 MaxIndex=n;
             end
             for j=MinIndex:MaxIndex
-                if test(j,2) == 1
+                if test(j,3) == 1
                    tempDeviation=abs(j-testIndex);
+                   dCount = dCount+1;
                    for k=1:size(output,1)
-                       if output(k,1) == j
+                       if output(k,2) == j
                            flag=1;
-                           if tempDeviation < output(k,2)
-                               output(k,2)=tempDeviation;
+                           if tempDeviation < output(k,3)
+                               output(k,3)=tempDeviation;
                            end
                        end
                    end
@@ -43,10 +47,11 @@ function [rtn,output]= evaluation(test,interval)
                     
         end
     end   
-    size(output,1)
     rtn.correctIdDrink =size(output,1)-1;
     rtn.numberOfPrediction = NumberOfPredictionAsOne;
-    rtn.drinkAccrcy = rtn.correctIdDrink/NumberOfPredictionAsOne;
+%     rtn.drinkAccrcy = rtn.correctIdDrink/NumberOfPredictionAsOne;
+    rtn.drinkTestAccrcy = dCount/testDCount;
+    rtn.drinkPredAccrcy = dCount/NumberOfPredictionAsOne;
     if rtn.correctIdDrink<1
         rtn.deviation = -1;
     else

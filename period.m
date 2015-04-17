@@ -8,9 +8,9 @@ function period = period( train,test)
         end;
         if m1~=0
         row=1;
-            for t1=5/60:5/60:20/60
+            for t1=5/60:5/60:10/60
                 col=1;
-                for t2=5/60:5/60:20/60
+                for t2=5/60:5/60:10/60
                 %train
                     endtime=train_period(m1,1)+t1;
                     starttime=train_period(1,1)-t2;
