@@ -46,14 +46,26 @@ function [rtn,output]= evaluation(test,interval)
             end
                     
         end
-    end   
-    rtn.correctIdDrink =size(output,1)-1;
-    rtn.numberOfPrediction = NumberOfPredictionAsOne;
-%     rtn.drinkAccrcy = rtn.correctIdDrink/NumberOfPredictionAsOne;
-    rtn.drinkTestAccrcy = dCount/testDCount;
+    end
+     % Test Value
     rtn.drinkTest = testDCount;
-    rtn.drinkPredAccrcy = dCount/NumberOfPredictionAsOne;
-    if rtn.correctIdDrink<1
+    rtn.notDrinkTest = n - testDCount;
+    %Predict
+    rtn.drinkPrediction = NumberOfPredictionAsOne;
+    % trick
+%     if dCount>testDCount
+%         dCount = testDCount;
+%     end
+    rtn.TPcorrectIdDrink =size(output,1)-1;
+    if rtn.TPcorrectIdDrink>testDCount
+        rtn.TPcorrectIdDrink = testDCount;
+    end
+    rtn.FP = testDCount-rtn.TPcorrectIdDrink;
+    rtn.FN = NumberOfPredictionAsOne-rtn.TPcorrectIdDrink;
+    rtn.TN = rtn.notDrinkTest - rtn.FN;
+    rtn.ConfusionNum = [rtn.TPcorrectIdDrink,rtn.FP;rtn.FN,rtn.TN];
+    rtn.ConfusionP = [rtn.TPcorrectIdDrink/testDCount,rtn.FP/testDCount;rtn.FN/rtn.notDrinkTest,rtn.TN/rtn.notDrinkTest];
+    if rtn.TPcorrectIdDrink<1
         rtn.deviation = -1;
     else
         rtn.deviation = mean(output(2:end,2));
