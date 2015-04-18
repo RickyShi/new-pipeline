@@ -29,7 +29,7 @@ benchmark=drink_count/size(test,1);
 arracy.accuracy_drink=max(accuracy_drink);
 arracy.index=find(accuracy_drink==arracy.accuracy_drink);
 arracy.accuracy_all=accuracy_all(arracy.index);
-arracy.result=result(:,arracy.index);
+arracy.result=result(:,arracy.index(1));
 arracy.benchmark=1-benchmark;
 arracy.confusion=confusion{arracy.index(1)};
 arracy.good_or_not=arracy.accuracy_all>arracy.benchmark;

@@ -51,6 +51,7 @@ function [rtn,output]= evaluation(test,interval)
     rtn.numberOfPrediction = NumberOfPredictionAsOne;
 %     rtn.drinkAccrcy = rtn.correctIdDrink/NumberOfPredictionAsOne;
     rtn.drinkTestAccrcy = dCount/testDCount;
+    rtn.drinkTest = testDCount;
     rtn.drinkPredAccrcy = dCount/NumberOfPredictionAsOne;
     if rtn.correctIdDrink<1
         rtn.deviation = -1;

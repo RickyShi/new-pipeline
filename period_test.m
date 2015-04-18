@@ -7,7 +7,7 @@ output(end+floor(windows/2))=0;
 for i=1:row
     output(i)=output(i+floor(windows/2));
 end;
-output=output>0.5;
+output=output>0.7;
 for i=1:row;
     if output(i)==1
         b=zeros(floor(windows/2),1);
