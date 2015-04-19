@@ -64,11 +64,11 @@ function [rtn,output]= evaluation(test,interval)
     rtn.FN = NumberOfPredictionAsOne-rtn.TPcorrectIdDrink;
     rtn.TN = rtn.notDrinkTest - rtn.FN;
     rtn.ConfusionNum = [rtn.TPcorrectIdDrink,rtn.FP;rtn.FN,rtn.TN];
-    rtn.ConfusionP = [rtn.TPcorrectIdDrink/testDCount,rtn.FP/testDCount;rtn.FN/rtn.notDrinkTest,rtn.TN/rtn.notDrinkTest];
+    rtn.ConfusionP = [100*rtn.TPcorrectIdDrink/testDCount,100*rtn.FP/testDCount;100*rtn.FN/rtn.notDrinkTest,100*rtn.TN/rtn.notDrinkTest];
     if rtn.TPcorrectIdDrink<1
         rtn.deviation = -1;
     else
-        rtn.deviation = mean(output(2:end,2));
+        rtn.deviation = mean(output(2:end,2))*5/60;
     end
     
 end
